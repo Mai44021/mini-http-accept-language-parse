@@ -26,3 +26,10 @@ Every HTTP server eventually needs to know what languages the client prefers. Th
 ## Exports
 
 - `parseAcceptLanguage(header: string): string[]` — Returns locale tags sorted by descending quality value. Ties preserve the original header order. Returns an empty array for empty, non-string, or whitespace-only input.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
